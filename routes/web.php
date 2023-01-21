@@ -1,0 +1,16 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use PharIo\Manifest\AuthorCollection;
+use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\DashboardController;
+
+
+Route::get('/', [AuthController::class, 'login'])->name('login');
+Route::post('/postlogin', [AuthController::class, 'postlogin'])->name('postlogin');
+Route::get('/register', [AuthController::class, 'register'])->name('register');
+Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::group(['middleware' => 'auth', 'checkRole:admin'], function () {
+  Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+});
