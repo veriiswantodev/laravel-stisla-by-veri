@@ -3,7 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use PharIo\Manifest\AuthorCollection;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\{
+  DashboardController,
+  UserController
+};
 
 
 Route::get('/', [AuthController::class, 'login'])->name('login');
@@ -13,4 +16,6 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => 'auth', 'checkRole:admin'], function () {
   Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+
+  Route::resource('/user', UserController::class);
 });
