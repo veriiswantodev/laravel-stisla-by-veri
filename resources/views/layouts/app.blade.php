@@ -9,6 +9,7 @@
   <!-- General CSS Files -->
   <link rel="stylesheet" href="{{asset('assets/modules/bootstrap/css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{asset('assets/modules/fontawesome/css/all.min.css')}}">
+    <link rel="stylesheet" href="{{asset('assets/modules/izitoast/css/iziToast.min.css')}}">
 
   <!-- CSS Libraries -->
 
@@ -45,6 +46,8 @@
   <script src="{{asset('assets/modules/moment.min.js')}}"></script>
   <script src="{{asset('assets/js/stisla.js')}}"></script>
   
+ <script src="{{asset('assets/modules/izitoast/js/iziToast.min.js')}}"></script>
+  
   <!-- JS Libraies -->
 
   <!-- Page Specific JS File -->
@@ -52,5 +55,22 @@
   <!-- Template JS File -->
   <script src="{{asset('assets/js/scripts.js')}}"></script>
   <script src="{{asset('assets/js/custom.js')}}"></script>
+  @stack('script')
+
+  <script>
+    @if(session()->has('sukses'))
+    iziToast.success({
+      title: 'sukses',
+      message: '{{session('sukses')}}',
+      position: 'topRight'
+    });
+    @elseif(session()->has('error'))
+    iziToast.error({
+      title: 'Hello, world!',
+      message: '{{session('error')}}',
+      position: 'topRight'
+    });
+    @endif
+  </script>
 </body>
 </html>

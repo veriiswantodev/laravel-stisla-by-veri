@@ -75,10 +75,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
 
-        $user->update($request->all([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]));
+        $user->update($request->all());
         if ($request->hasFile('avatar')) {
             $request->file('avatar')->move('public/profile', $request->file('avatar')->getClientOriginalName());
             $user->avatar = $request->file('avatar')->getClientOriginalName();

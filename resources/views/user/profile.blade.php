@@ -98,16 +98,6 @@
                   </div>
                 </div>
 
-                <div class="row">
-                  <div class="form-group col-md-12 col-12">
-                    <label>Password</label>
-                    <input type="password" class="form-control" name="password">
-                    <div class="invalid-feedback">
-                      
-                    </div>
-                  </div>
-                </div>
-
             </div>
             <div class="card-footer text-right">
               <button class="btn btn-primary" type="submit">Simpan</button>
