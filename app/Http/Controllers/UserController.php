@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -72,7 +73,20 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+
+        $user->update($request->all([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]));
+        if ($request->hasFile('avatar')) {
+            $request->file('avatar')->move('public/profile', $request->file('avatar')->getClientOriginalName());
+            $user->avatar = $request->file('avatar')->getClientOriginalName();
+            $user->save();
+        }
+        // dd($user);
+
+        return redirect(route('user.profile', Auth()->user()->id))->with('sukses', 'Data berhasil diupdate');
     }
 
     /**
@@ -84,5 +98,10 @@ class UserController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function profile($id)
+    {
+        return view('user.profile');
     }
 }
